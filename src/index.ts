@@ -5,7 +5,7 @@ import fs from 'fs'
 const app = express()
 const port = process.env.PORT || 3000
 
-app.get('/:link', async (req, res) => {
+app.get('/download/:link', async (req, res) => {
   const linkParam = req.params.link
   const link = `https://www.youtube.com/watch?v=${linkParam}`
 
@@ -20,6 +20,26 @@ app.get('/:link', async (req, res) => {
         fs.unlinkSync(filename)
       })
     })
+})
+
+app.get('/videoinfo/:link', async (req, res) => {
+  const linkParam = req.params.link
+  const link = `https://www.youtube.com/watch?v=${linkParam}`
+
+  const info = await ytdl.getInfo(link)
+
+  res.json({
+    author: info.videoDetails.author,
+    title: info.videoDetails.title,
+    views: info.videoDetails.viewCount,
+    thumbnail: info.videoDetails.thumbnails
+  })
+})
+
+app.get('/', async (req, res) => {
+  res.json({
+    query: "None"
+  })
 })
 
 app.listen(port, () => {
