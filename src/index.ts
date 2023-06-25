@@ -1,6 +1,7 @@
 import express from 'express'
 import ytdl from 'ytdl-core'
 import fs from 'fs'
+import { Request, Response } from "express";
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -36,7 +37,7 @@ app.get('/videoinfo/:link', async (req, res) => {
   })
 })
 
-app.get('/', async (req, res) => {
+app.get('/', async (req: Request, res: Response) => {
   res.json({
     query: "None"
   })
