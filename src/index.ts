@@ -1,37 +1,32 @@
 import express from 'express'
-import ytdl from 'ytdl-core-discord'
+import ytdl from 'ytdl-core'
 import { Request, Response } from 'express'
 
 const app = express()
 const port = process.env.PORT || 3000
 
-app.get('/download/:link', async (req: Request, res: Response) => {
+app.get('/audio/:url', async (req: Request, res: Response) => {
+  const urlParam = req.params.url
+  const url = `https://www.youtube.com/watch?v=${urlParam}`
   try {
-    const linkParam = req.params.link
-    const link = `https://www.youtube.com/watch?v=${linkParam}`
-
-    const info = await ytdl.getInfo(link)
+    const info = await ytdl.getInfo(url as string)
     const audioFormat = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' })
-    const filename = `${info.videoDetails.title} - ${info.videoDetails.author}.mp3`
 
-    res.set({
-      'Content-Disposition': `attachment; filename="${filename}"`,
-      'Content-Type': 'audio/mpeg'
-    });
+    const audioUrl = audioFormat.url
 
-    (await ytdl(link, { format: audioFormat })).pipe(res)
+    res.redirect(audioUrl)
   } catch (err) {
     console.error(err)
-    res.status(500).json({ error: 'Failed to download the audio' })
+    res.status(500).json({ error: 'Failed to get audio URL!' })
   }
 })
 
-app.get('/videoinfo/:link', async (req: Request, res: Response) => {
+app.get('/videoinfo/:url', async (req: Request, res: Response) => {
   try {
-    const linkParam = req.params.link
-    const link = `https://www.youtube.com/watch?v=${linkParam}`
+    const urlParam = req.params.url
+    const url = `https://www.youtube.com/watch?v=${urlParam}`
 
-    const info = await ytdl.getInfo(link)
+    const info = await ytdl.getInfo(url)
 
     res.json({
       author: info.videoDetails.author,
