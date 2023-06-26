@@ -15,7 +15,7 @@ npm install
 ```bash
 npm start
 ```
- **Acess the application in the browser: `http://localhost:PORT`**
+ **Acess the application in the browser: `http://localhost:PORT` or `http://localhost:3000`**
 
 ## ⚠️ | Warning
 **The API is not finalized, without quality filter or download of the audios!**
