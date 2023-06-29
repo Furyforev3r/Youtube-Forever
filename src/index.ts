@@ -21,6 +21,22 @@ app.get('/audio/:url', async (req: Request, res: Response) => {
   }
 })
 
+app.get('/video/:url', async (req: Request, res: Response) => {
+  const urlParam = req.params.url
+  const url = `https://www.youtube.com/watch?v=${urlParam}`
+  try {
+    const info = await ytdl.getInfo(url as string)
+    const videoFormat = ytdl.chooseFormat(info.formats, { quality: 'highest', filter: 'videoandaudio' } )
+
+    const videoUrl = videoFormat.url
+
+    res.redirect(videoUrl)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Failed to get audio URL!' })
+  }
+})
+
 app.get('/videoinfo/:url', async (req: Request, res: Response) => {
   try {
     const urlParam = req.params.url
