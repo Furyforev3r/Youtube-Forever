@@ -1,5 +1,5 @@
 ![Youtube Banner](https://github.com/Furyforev3r/Youtube-Downloader-ExpressJS/assets/88341564/cbc6cde8-1230-48f7-85ed-75ce1849a66a)
-# 📹 | Youtube-Downloader-ExpressJS (Youtube Forever)
+# 📹 | Youtube Forever - ExpressJS
 **An API that downloads video/audio and gets information from Youtube videos!**
 ---
 **Running on: https://youtubeforever.vercel.app/**
