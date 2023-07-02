@@ -6,7 +6,7 @@
 # 📥 Installation
 **Clone the repository:**
 ```bash
-git clone https://github.com/Furyforev3r/Youtube-Downloader-ExpressJS.git
+git clone https://github.com/Furyforev3r/Youtube-Forever.git
 ```
 **Install dependencies:**
 ```bash
